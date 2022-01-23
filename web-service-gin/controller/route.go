@@ -11,6 +11,7 @@ func Register() *gin.Engine {
 	router.GET("/albums", model.GetAlbums)
 	router.GET("/albums/:id", model.GetAlbumByID)
 	router.POST("/albums", model.PostAlbums)
+	router.DELETE("/albums/:id", model.DeleteAlbums)
 
 	router.Run("localhost:8080")
 

@@ -44,3 +44,16 @@ func PostAlbums(c *gin.Context) {
 	data.Albums = append(data.Albums, newAlbum)
 	c.IndentedJSON(http.StatusCreated, newAlbum)
 }
+
+func DeleteAlbums(c *gin.Context) {
+	id := c.Param("id")
+
+	for i, a := range data.Albums {
+		if a.ID == id {
+			data.Albums = append(data.Albums[:i], data.Albums[i+1:]...) //I dont get how it works
+			c.IndentedJSON(http.StatusOK, a)
+			return
+		}
+	}
+	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
+}
