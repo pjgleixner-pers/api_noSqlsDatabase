@@ -33,10 +33,11 @@ func GetAlbumByID(c *gin.Context) {
 func PostAlbums(c *gin.Context) {
 	//var newAlbum controller.
 	var newAlbum views.Album
-
+	err := c.BindJSON(&newAlbum)
 	// Call BindJSON to bind the received JSON to
 	// newAlbum.
-	if err := c.BindJSON(&newAlbum); err != nil {
+
+	if err != nil {
 		return
 	}
 
@@ -44,6 +45,21 @@ func PostAlbums(c *gin.Context) {
 	data.Albums = append(data.Albums, newAlbum)
 	c.IndentedJSON(http.StatusCreated, newAlbum)
 }
+
+/*func PostAlbums(c *gin.Context) {
+	//var newAlbum controller.
+	var newAlbum views.Album
+	// Call BindJSON to bind the received JSON to
+	// newAlbum.
+	for i := range newAlbum {
+		err := c.BindJSON(&newAlbum[i])
+		if err != nil {
+			return
+		}
+		data.Albums = append(data.Albums, newAlbum[i])
+		c.IndentedJSON(http.StatusCreated, newAlbum[i])
+	}
+}*/
 
 func DeleteAlbums(c *gin.Context) {
 	id := c.Param("id")
